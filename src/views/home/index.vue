@@ -1,6 +1,7 @@
 <template>
-  <div id="app">
-    <router-view />
+  <!-- 主页 -->
+  <div>
+      <h3>home</h3>
   </div>
 </template>
 
