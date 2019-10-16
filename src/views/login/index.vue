@@ -47,8 +47,8 @@
   </div>
 </template>
 <script>
-// 导入 axios
-import axios from 'axios'
+// 导入 axios  这个不需要了,因为已经把axios设置到了Vue原型中了
+// import axios from 'axios'
 export default {
   data () {
     return {
@@ -105,24 +105,30 @@ export default {
       // 将加载状态设置为true
       this.loginloading = true
       // 发送请求到服务器
-      axios({
-        url: 'http://ttapi.research.itcast.cn/mp/v1_0/authorizations',
+      this.$http({
+        url: '/authorizations',
         method: 'POST',
         data: this.form
+      }).then(res => {
+        console.log(res)
+        // 等到用户信息
+        // 响应拦截器以设置
+        // let userInfo = res.data.data
+        let userInfo = res
+        // 将用户的信息保存到 localStorage 中    JSON.stringify: 转换模式  js转json
+        window.localStorage.setItem('userInfo', JSON.stringify(userInfo))
+        // 只要进入这个方法说明登录成功
+        this.$message({
+          message: '登录成功',
+          type: 'success'
+        })
+        // 请求完成后,将loginloading改为false
+        this.loginloading = false
+        this.$router.push('/')
+      }).catch(err => {
+        console.log(err)
+        this.$message.error('手机号码或验证码错误')
       })
-        .then(res => {
-          this.$router.push('/')
-          this.$message({
-            message: '登录成功',
-            type: 'success'
-          })
-          // 请求完成后,将loginloading改为false
-          this.loginloading = false
-        })
-        .catch(err => {
-          console.log(err)
-          this.$message.error('手机号码或验证码错误')
-        })
     },
     getCode () {
       // 获取 form 表单
