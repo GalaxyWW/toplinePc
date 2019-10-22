@@ -116,7 +116,9 @@ export default {
         // let userInfo = res.data.data
         let userInfo = res
         // 将用户的信息保存到 localStorage 中    JSON.stringify: 转换模式  js转json
-        window.localStorage.setItem('userInfo', JSON.stringify(userInfo))
+        // window.localStorage.setItem('userInfo', JSON.stringify(userInfo))
+        // 将用户信息保存到vuex中
+        this.$store.commit('setUserInfo', userInfo)
         // 只要进入这个方法说明登录成功
         this.$message({
           message: '登录成功',

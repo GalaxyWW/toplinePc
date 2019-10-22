@@ -34,7 +34,9 @@ export default {
   // 生命周期函数creatrd
   created () {
     // 网页刚打开时,从localstorage中取出userInfo   parse: json转js对象
-    this.userInfo = JSON.parse(window.localStorage.getItem('userInfo'))
+    // this.userInfo = JSON.parse(window.localStorage.getItem('userInfo'))
+    // 从vuex中取出userinfo
+    this.userInfo = this.$store.state.userInfo
   }
 }
 </script>

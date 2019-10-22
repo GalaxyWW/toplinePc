@@ -48,6 +48,7 @@
       @prev-click="perClick"
       background
       layout="prev, pager, next"
+      :page-size="20"
       :total="total_count"
     ></el-pagination>
     <!-- 弹出的面板 -->
@@ -105,7 +106,8 @@ export default {
         url: '/user/images',
         method: 'GET',
         params: {
-          collect: collect
+          collect: collect,
+          page: this.page
         }
       }).then(res => {
         console.log(res)
